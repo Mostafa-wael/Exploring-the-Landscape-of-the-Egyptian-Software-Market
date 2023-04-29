@@ -1,3 +1,5 @@
+import cleanSpaces from "./cleanSpaces.js";
+
 function getLanguagesObject(el) {
     const obj = {
         title: "",
@@ -6,7 +8,7 @@ function getLanguagesObject(el) {
 
     const firstDiv = el.querySelector("div");
 
-    if (firstDiv.getAttribute("class").replace(/\s+/g, ' ').trim() !== "pvs-entity pvs-entity--padded pvs-list__item--no-padding-in-columns".replace(/\s+/g, ' ').trim()) return;
+    if (cleanSpaces(firstDiv.getAttribute("class")) !== "pvs-entity pvs-entity--padded pvs-list__item--no-padding-in-columns") return;
 
     const secondDiv = firstDiv.querySelector("div:nth-child(2)");
     const mainDiv = secondDiv.querySelectorAll("div")[0];
@@ -15,13 +17,13 @@ function getLanguagesObject(el) {
     const language = mainDiv.querySelector(".t-bold");
     if (language && language.querySelector("span")) {
         const title = language.querySelector("span");
-        obj.title = title.innerHTML;
+        obj.title = cleanSpaces(title.innerText);
     }
 
     const proficiency = mainDiv.querySelector(".t-normal");
     if (proficiency && proficiency.querySelector("span")) {
         const proficiencySpan = proficiency.querySelector("span");
-        obj.proficiency = proficiencySpan.innerHTML;
+        obj.proficiency = cleanSpaces(proficiencySpan.innerText);
     }
 
     return obj;

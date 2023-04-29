@@ -2,7 +2,7 @@ import fs from "fs";
 import { parse } from "node-html-parser";
 import { utils } from "./utils/index.js";
 
-const html = fs.readFileSync(`sections/heba-abdelnasser.html`, "utf8");
+const html = fs.readFileSync(`sections/abdullahadel41.html`, "utf8");
 const html_root = parse(html);
 
 utils.getEducation(html_root);

@@ -4,6 +4,7 @@ import getSkill from "./skills.js";
 import getVolunteering from "./volunteering.js";
 import getLanguages from "./language.js";
 import getLicensesAndCertifications from "./licenses.js";
+import cleanSpaces from "./cleanSpaces.js";
 
 export const utils = {
     getEducation,
@@ -11,5 +12,6 @@ export const utils = {
     getSkill,
     getVolunteering,
     getLanguages,
-    getLicensesAndCertifications
+    getLicensesAndCertifications,
+    cleanSpaces
 }

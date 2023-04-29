@@ -1,6 +1,8 @@
+import cleanSpaces from "./cleanSpaces.js";
+
 function getSkillObject(el) {
     const firstDiv = el.querySelector("div");
-    if (firstDiv.getAttribute("class").replace(/\s+/g, ' ').trim() !== "pvs-entity pvs-entity--padded pvs-list__item--no-padding-in-columns".replace(/\s+/g, ' ').trim()) return;
+    if (cleanSpaces(firstDiv.getAttribute("class")) !== "pvs-entity pvs-entity--padded pvs-list__item--no-padding-in-columns") return;
 
     const secondDiv = firstDiv.querySelector("div:nth-child(2)");
     const mainDiv = secondDiv.querySelectorAll("div")[0];
@@ -9,7 +11,7 @@ function getSkillObject(el) {
 
     if (parentSpan && parentSpan.querySelector("span")) {
         const title = parentSpan.querySelector("span");
-        return title.innerHTML.replace(/\s+/g, ' ').trim();
+        return cleanSpaces(title.innerText);
     }
 }
 

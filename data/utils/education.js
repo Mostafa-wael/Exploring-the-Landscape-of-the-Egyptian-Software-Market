@@ -1,6 +1,8 @@
+import cleanSpaces from "./cleanSpaces.js";
+
 function getEducationalObject(el) {
     const firstDiv = el.querySelector("div");
-    if (firstDiv.getAttribute("class").replace(/\s+/g, ' ').trim() !== "pvs-entity pvs-entity--padded pvs-list__item--no-padding-in-columns".replace(/\s+/g, ' ').trim()) return;
+    if (cleanSpaces(firstDiv.getAttribute("class")) !== "pvs-entity pvs-entity--padded pvs-list__item--no-padding-in-columns") return;
 
     const secondDiv = firstDiv.querySelector("div:nth-child(2)");
     const mainDiv = secondDiv.querySelectorAll("div")[0];
@@ -14,7 +16,7 @@ function getEducationalObject(el) {
     const parentSpan = mainDiv.querySelector(".t-bold");
     if (parentSpan && parentSpan.querySelector("span")) {
         const title = parentSpan.querySelector("span");
-        obj.University = title.innerHTML.replace(/\s+/g, ' ').trim();
+        obj.University = cleanSpaces(title.innerText);
     }
 
     const companyDateLocationSpans = mainDiv.querySelectorAll(".t-normal");
@@ -23,10 +25,10 @@ function getEducationalObject(el) {
         if (companyDateLocationSpan && companyDateLocationSpan.querySelector("span")) {
             const companyDateLocation = companyDateLocationSpan.querySelector("span");
             if (i === 0) {
-                obj.Degree = companyDateLocation.innerHTML.replace(/\s+/g, ' ').trim();
+                obj.Degree = cleanSpaces(companyDateLocation.innerText);
             }
             if (i === 1) {
-                obj.Date = companyDateLocation.innerHTML.replace(/\s+/g, ' ').trim();
+                obj.Date = cleanSpaces(companyDateLocation.innerText);
             }
         }
     }

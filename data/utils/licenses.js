@@ -1,3 +1,5 @@
+import cleanSpaces from "./cleanSpaces.js";
+
 function getLicensesAndCertificationsObject(el) {
     const obj = {
         title: "",
@@ -7,14 +9,14 @@ function getLicensesAndCertificationsObject(el) {
 
     const firstDiv = el.querySelector("div");
 
-    if (firstDiv.getAttribute("class").replace(/\s+/g, ' ').trim() !== "pvs-entity pvs-entity--padded pvs-list__item--no-padding-in-columns".replace(/\s+/g, ' ').trim()) return;
+    if (cleanSpaces(firstDiv.getAttribute("class")) !== "pvs-entity pvs-entity--padded pvs-list__item--no-padding-in-columns") return;
     const secondDiv = firstDiv.querySelector("div:nth-child(2)");
     const mainDiv = secondDiv.querySelectorAll("div")[0];
 
     const parentSpan = mainDiv.querySelector(".t-bold");
     if (parentSpan && parentSpan.querySelector("span")) {
         const title = parentSpan.querySelector("span");
-        obj.title = title.innerHTML;
+        obj.title = cleanSpaces(title.innerText);
     }
 
     const companyDateLocationSpans = mainDiv.querySelectorAll(".t-normal");
@@ -23,10 +25,10 @@ function getLicensesAndCertificationsObject(el) {
         if (companyDateLocationSpan && companyDateLocationSpan.querySelector("span")) {
             const companyDateLocation = companyDateLocationSpan.querySelector("span");
             if (i === 0) {
-                obj.issuer = companyDateLocation.innerHTML;
+                obj.issuer = cleanSpaces(companyDateLocation.innerText);
             }
             if (i === 1) {
-                obj.date = companyDateLocation.innerHTML;
+                obj.date = cleanSpaces(companyDateLocation.innerText);
             }
         }
     }
