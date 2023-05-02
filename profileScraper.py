@@ -8,12 +8,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 import re
+import random
 
 def login(browser):
     # Launch the browser and go to the LinkedIn login page
     browser.get('https://www.linkedin.com/login')
     # Wait for the login form to load and enter your login credentials
-    
+    username = ''
+    password = ''
     browser.find_element('id', 'username').send_keys(username)
     time.sleep(2)  # Add delay of 2 seconds
     browser.find_element('id','password').send_keys(password)
@@ -21,18 +23,19 @@ def login(browser):
     browser.find_element(By.CSS_SELECTOR, '.btn__primary--large').click()
 
 def navigate_to_link(browser, profile_url):
+    time.sleep(random.randint(10, 20))  
     # Wait for the homepage to load and go to the target profile page
     browser.get(profile_url)
     try:
-        # elem = WebDriverWait(browser, 30).until(EC.presence_of_element_located((By.ID, "education")))
-        # elem = WebDriverWait(browser, 30).until(EC.presence_of_element_located((By.ID, "education")))
-        elem = WebDriverWait(browser, 30).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'input[aria-label="Search"]')))
-        # time.sleep(30)
+        elem = WebDriverWait(browser, 30).until(EC.presence_of_element_located((By.ID, "education"))) # Wait for the profile page to load
+        # elem = WebDriverWait(browser, 30).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'input[aria-label="Search"]'))) # Wait for the company page to load
+        time.sleep(random.randint(1, 10))  
     except Exception as e:
         print(e)
         print("Page not loaded")
     finally:
         pass
+    time.sleep(random.randint(10, 20))  
 
 def save_html(browser, target_url, profile_dir='profiles'):
     # Save the HTML to a file
@@ -54,17 +57,14 @@ def getVisitedLinks():
 
 def createNewLinks(visited_profiles):
     # create a new file called newLinks.csv and write the visited profiles to it
-    with open('newLinks.csv', 'w') as f:
+    with open('newLinks+.csv', 'w') as f:
         writer = csv.writer(f)
         for link in visited_profiles:
             writer.writerow([link])
     print("New links file created with size: ", len(visited_profiles))
 
-if __name__ == "__main__":
-    browser = webdriver.Chrome()
-    login(browser)
+def scrapDataFromCompanies(browser, target_url):
     visited_profiles = getVisitedLinks()
-    target_url = 'https://www.linkedin.com/search/results/people/?currentCompany=%5B%2210046%22%2C%2211254926%22%2C%2228195%22%2C%225242550%22%2C%2231293%22%2C%221112%22%2C%228331%22%5D&geoUrn=%5B%22102007122%22%2C%22106155005%22%5D&origin=FACETED_SEARCH&sid=3s2'
     navigate_to_link(browser, target_url)
     print("Start Scraping")
     newProfileNum = 0
@@ -97,8 +97,33 @@ if __name__ == "__main__":
         createNewLinks(visited_profiles)
         print("Visited Profiles: ", len(visited_profiles))
 
-        
-    
-    createNewLinks(visited_profiles)
+def saveProfilesHTML(browser, visited_profiles):
+    for profile in visited_profiles:
+        navigate_to_link(browser, profile)
+        save_html(browser, profile)
+
+if __name__ == "__main__":
+    browser = webdriver.Chrome()
+    login(browser)
+    #=============================================== 
+    # target_url = 'https://www.linkedin.com/search/results/people/?currentCompany=%5B%2210046%22%2C%2211254926%22%2C%2228195%22%2C%225242550%22%2C%2231293%22%2C%221112%22%2C%228331%22%5D&geoUrn=%5B%22102007122%22%2C%22106155005%22%5D&origin=FACETED_SEARCH&sid=3s2'
+    # scrapDataFromCompanies(browser, target_url)
+    #=============================================== 
+    visited_profiles = getVisitedLinks()
+    for i, profile in enumerate(visited_profiles):
+        try:
+            # check if the profiles is already saved
+            if os.path.exists(f"profiles/{profile.strip('/').split('/')[-1]}.html"):
+                print(f"profiles/{profile.strip('/').split('/')[-1]} is already saved")
+                continue
+            navigate_to_link(browser, profile)
+            save_html(browser, profile)
+            print(f"Profile {i} saved")
+        except Exception as e:
+            print(e)
+            print(f"Error in {profile}")
+            continue
+
+    #=============================================== 
     # Close the browser
     browser.quit()
