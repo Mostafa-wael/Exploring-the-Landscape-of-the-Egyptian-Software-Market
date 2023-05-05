@@ -22,7 +22,6 @@ export default function getSkill(html_root) {
         const skillsUl = skillsSection[0].querySelector("ul");
         const skillsLis = Array.from(skillsUl.querySelectorAll("li"));
         const skillsArray = skillsLis.map(getSkillObject).filter((el) => el !== undefined);
-        console.log("skillsArr: ", skillsArray);
         return skillsArray;
     }
     return [];

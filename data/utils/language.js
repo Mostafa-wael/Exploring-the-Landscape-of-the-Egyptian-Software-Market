@@ -38,7 +38,6 @@ export default function getLanguages(html_root) {
 
         const languagesArray = lis.map(getLanguagesObject).filter((el) => el !== undefined);
 
-        console.log("languagesArray: ", languagesArray);
         return languagesArray;
 
     }

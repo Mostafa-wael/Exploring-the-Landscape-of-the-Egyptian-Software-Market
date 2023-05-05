@@ -44,6 +44,5 @@ export default function getEducation(html_root) {
 
     const educationLis = Array.from(educationUl.querySelectorAll("li"));
     const educationArray = educationLis.map(getEducationalObject).filter((el) => el !== undefined);
-    console.log("educationArr: ", educationArray);
     return educationArray;
 }

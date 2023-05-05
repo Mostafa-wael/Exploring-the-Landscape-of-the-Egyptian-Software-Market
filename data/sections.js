@@ -1,7 +1,11 @@
+import fs from "fs";
+import { parse } from "node-html-parser";
+
 export default function getSections(sourceFolder, destinationPath) {
 
     fs.readdirSync(sourceFolder).forEach(file => {
 
+        if (file === ".gitkeep") return;
         console.log("processing file: ", file);
 
         fs.writeFileSync(`${destinationPath}/${file}`, "", "utf8")
@@ -16,7 +20,7 @@ export default function getSections(sourceFolder, destinationPath) {
 
         const targetedIds = ["experience", "education", "licenses_and_certifications", "volunteering_experience", "languages", "skills"]
 
-        const targetedSections = sections.filter(function(el) {
+        const targetedSections = sections.filter(function (el) {
             let found = false;
             for (let i = 0; i < targetedIds.length; i++) {
                 const id = targetedIds[i];

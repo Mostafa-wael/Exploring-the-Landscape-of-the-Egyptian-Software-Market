@@ -43,7 +43,6 @@ export default function getVolunteering(html_root) {
         const volunteeringUl = volunteeringSection[0].querySelector("ul");
         const volunteeringLis = Array.from(volunteeringUl.querySelectorAll("li"));
         const volunteeringArray = volunteeringLis.map(getVolunteeringObject).filter((el) => el !== undefined);
-        console.log("volunteeringArr: ", volunteeringArray);
         return volunteeringArray;
     }
     return [];

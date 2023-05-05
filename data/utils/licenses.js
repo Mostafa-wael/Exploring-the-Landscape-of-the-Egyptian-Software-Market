@@ -43,7 +43,6 @@ export default function getLicensesAndCertifications(html_root) {
 
         const licensesAndCertificationsArray = lis.map(getLicensesAndCertificationsObject).filter((el) => el !== undefined);
 
-        console.log("licensesAndCertificationsArray: ", licensesAndCertificationsArray);
         return licensesAndCertificationsArray;
     }
     return [];

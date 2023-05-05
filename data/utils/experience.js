@@ -12,7 +12,14 @@ function getExperienceObject(el) {
 
     const obj = {}
 
-    const companyUrl = firstDiv.querySelector("a").getAttribute("href");
+    if (firstDiv.querySelector("a")?.getAttribute("href") === undefined) {
+        return undefined;
+    }
+
+    let companyUrl = firstDiv.querySelector("a").getAttribute("href");
+
+    if (companyUrl.split("/")[3] !== "company")
+        companyUrl = "UNKNOWN";
     obj.companyUrl = companyUrl;
 
     if (!haveMultiplePositions) {
@@ -76,7 +83,6 @@ function getExperienceObject(el) {
                 positionObj.date = cleanSpaces(otherSpans[0].querySelector("span").innerText);
             }
 
-            console.log("positionObj: ", positionObj);
 
             return positionObj;
         });
@@ -93,7 +99,6 @@ export default function getExperience(html_root) {
         const experienceUl = experienceSection[0].querySelector("ul");
         const experienceLis = Array.from(experienceUl.querySelectorAll("li"));
         const experienceArray = experienceLis.map(getExperienceObject).filter((el) => el !== undefined);
-        console.log("experienceArr: ", experienceArray);
         return experienceArray;
     }
 
