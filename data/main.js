@@ -7,12 +7,14 @@ const allCompanies = new Set();
 
 // getSections('profiles', 'sections')
 
+let ctr = 0;
 
 function readFiles(dirname, onError) {
 
     const filenames = fs.readdirSync(dirname)
 
     filenames.forEach(function (filename) {
+        if (ctr === 1) return;
         if (filename === ".gitkeep") return;
         console.log("Preprocessing ", filename);
 
@@ -32,19 +34,12 @@ function readFiles(dirname, onError) {
             certificate: utils.getLicensesAndCertifications(html_root),
         };
 
+        console.log(profileDetails)
+
         const companiesLinks = experienceList.map((experience) => experience?.companyUrl ?? "");
         companiesLinks.forEach((company) => allCompanies.add(company))
+        ctr++;
     });
-
-    console.log("Total Companies: ", allCompanies.size)
 }
 
 readFiles("sections")
-
-let companiesLinks = "";
-allCompanies.forEach((company) => {
-    if (company === "UNKNOWN") return;
-    companiesLinks += `${company}\n`
-})
-
-fs.writeFileSync('companies/companiesLinks.txt', companiesLinks);
