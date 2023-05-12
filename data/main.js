@@ -3,43 +3,55 @@ import { parse } from "node-html-parser";
 import { utils } from "./utils/index.js";
 import getSections from "./sections.js";
 
-const allCompanies = new Set();
-
 // getSections('profiles', 'sections')
 
-let ctr = 0;
+
+const allExperiences = [];
+const allEducations = [];
+const allSkills = [];
+const allVolunteering = [];
+const allLanguages = [];
+const allLicenses = [];
 
 function readFiles(dirname, onError) {
 
     const filenames = fs.readdirSync(dirname)
 
     filenames.forEach(function (filename) {
-        if (ctr === 1) return;
         if (filename === ".gitkeep") return;
         console.log("Preprocessing ", filename);
 
         const html = fs.readFileSync(`${dirname}/${filename}`, "utf8");
         const html_root = parse(html);
 
-        const experienceList = utils.getExperience(html_root)
 
-        // console.log(experienceList)
+        const filenameKey = filename.split('.')[0]
+
 
         const profileDetails = {
-            education: utils.getEducation(html_root),
-            experience: experienceList,
-            skill: utils.getSkill(html_root),
-            volunteer: utils.getVolunteering(html_root),
-            language: utils.getLanguages(html_root),
-            certificate: utils.getLicensesAndCertifications(html_root),
+            education: utils.getEducation(html_root, filenameKey),
+            experience: utils.getExperience(html_root, filenameKey),
+            skill: utils.getSkill(html_root, filenameKey),
+            volunteer: utils.getVolunteering(html_root, filenameKey),
+            language: utils.getLanguages(html_root, filenameKey),
+            certificate: utils.getLicensesAndCertifications(html_root, filenameKey),
         };
 
-        console.log(profileDetails)
+        allExperiences.push(...profileDetails.experience);
+        allEducations.push(...profileDetails.education);
+        allSkills.push(...profileDetails.skill);
+        allVolunteering.push(...profileDetails.volunteer);
+        allLanguages.push(...profileDetails.language);
+        allLicenses.push(...profileDetails.certificate);
 
-        const companiesLinks = experienceList.map((experience) => experience?.companyUrl ?? "");
-        companiesLinks.forEach((company) => allCompanies.add(company))
-        ctr++;
     });
 }
 
 readFiles("sections")
+
+fs.writeFileSync("preprocessed-data/experiences.json", JSON.stringify(allExperiences));
+fs.writeFileSync("preprocessed-data/educations.json", JSON.stringify(allEducations));
+fs.writeFileSync("preprocessed-data/skills.json", JSON.stringify(allSkills));
+fs.writeFileSync("preprocessed-data/volunteering.json", JSON.stringify(allVolunteering));
+fs.writeFileSync("preprocessed-data/languages.json", JSON.stringify(allLanguages));
+fs.writeFileSync("preprocessed-data/licenses.json", JSON.stringify(allLicenses));

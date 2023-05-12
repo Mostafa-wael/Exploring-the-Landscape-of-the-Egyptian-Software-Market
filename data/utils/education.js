@@ -1,6 +1,6 @@
 import cleanSpaces from "./cleanSpaces.js";
 
-function getEducationalObject(el) {
+function getEducationalObject(el, userUrl) {
     const firstDiv = el.querySelector("div");
     if (cleanSpaces(firstDiv.getAttribute("class")) !== "pvs-entity pvs-entity--padded pvs-list__item--no-padding-in-columns") return;
 
@@ -11,6 +11,7 @@ function getEducationalObject(el) {
         "University": "",
         "Degree": "",
         "Date": "",
+        "User": userUrl
     }
 
     const parentSpan = mainDiv.querySelector(".t-bold");
@@ -36,13 +37,13 @@ function getEducationalObject(el) {
     return obj;
 }
 
-export default function getEducation(html_root) {
+export default function getEducation(html_root, filename) {
     const educationSection = html_root.querySelectorAll("section").filter((el) => el.querySelector("#education"));
     if (educationSection.length === 0) return [];
 
     const educationUl = educationSection[0].querySelector("ul");
 
     const educationLis = Array.from(educationUl.querySelectorAll("li"));
-    const educationArray = educationLis.map(getEducationalObject).filter((el) => el !== undefined);
+    const educationArray = educationLis.map((el) => getEducationalObject(el, filename)).filter((el) => el !== undefined);
     return educationArray;
 }

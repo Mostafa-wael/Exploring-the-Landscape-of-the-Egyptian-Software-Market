@@ -1,6 +1,6 @@
 import cleanSpaces from "./cleanSpaces.js";
 
-function getVolunteeringObject(el) {
+function getVolunteeringObject(el, filenameKey) {
     const firstDiv = el.querySelector("div");
     if (cleanSpaces(firstDiv.getAttribute("class")) !== "pvs-entity pvs-entity--padded pvs-list__item--no-padding-in-columns") return;
 
@@ -11,6 +11,7 @@ function getVolunteeringObject(el) {
         "Organization": "",
         "Role": "",
         "Date": "",
+        "User": filenameKey
     }
 
     const parentSpan = mainDiv.querySelector(".t-bold");
@@ -37,12 +38,12 @@ function getVolunteeringObject(el) {
 }
 
 
-export default function getVolunteering(html_root) {
+export default function getVolunteering(html_root, filenameKey) {
     const volunteeringSection = html_root.querySelectorAll("section").filter((el) => el.querySelector("#volunteering_experience"));
     if (volunteeringSection.length > 0) {
         const volunteeringUl = volunteeringSection[0].querySelector("ul");
         const volunteeringLis = Array.from(volunteeringUl.querySelectorAll("li"));
-        const volunteeringArray = volunteeringLis.map(getVolunteeringObject).filter((el) => el !== undefined);
+        const volunteeringArray = volunteeringLis.map((el) => getVolunteeringObject(el, filenameKey)).filter((el) => el !== undefined);
         return volunteeringArray;
     }
     return [];

@@ -1,10 +1,11 @@
 import cleanSpaces from "./cleanSpaces.js";
 
-function getLicensesAndCertificationsObject(el) {
+function getLicensesAndCertificationsObject(el, filenameKey) {
     const obj = {
-        title: "",
-        issuer: "",
-        date: ""
+        Title: "",
+        Issuer: "",
+        Date: "",
+        "User": filenameKey
     }
 
     const firstDiv = el.querySelector("div");
@@ -16,7 +17,7 @@ function getLicensesAndCertificationsObject(el) {
     const parentSpan = mainDiv.querySelector(".t-bold");
     if (parentSpan && parentSpan.querySelector("span")) {
         const title = parentSpan.querySelector("span");
-        obj.title = cleanSpaces(title.innerText);
+        obj.Title = cleanSpaces(title.innerText);
     }
 
     const companyDateLocationSpans = mainDiv.querySelectorAll(".t-normal");
@@ -25,23 +26,23 @@ function getLicensesAndCertificationsObject(el) {
         if (companyDateLocationSpan && companyDateLocationSpan.querySelector("span")) {
             const companyDateLocation = companyDateLocationSpan.querySelector("span");
             if (i === 0) {
-                obj.issuer = cleanSpaces(companyDateLocation.innerText);
+                obj.Issuer = cleanSpaces(companyDateLocation.innerText);
             }
             if (i === 1) {
-                obj.date = cleanSpaces(companyDateLocation.innerText);
+                obj.Date = cleanSpaces(companyDateLocation.innerText);
             }
         }
     }
     return obj;
 }
 
-export default function getLicensesAndCertifications(html_root) {
+export default function getLicensesAndCertifications(html_root, filenameKey) {
     const licensesAndCertifications = html_root.querySelectorAll("section").filter((el) => el.querySelector("#licenses_and_certifications"))
     if (licensesAndCertifications && licensesAndCertifications.length > 0) {
         const licensesAndCertificationsUl = licensesAndCertifications[0].querySelector("ul");
         const lis = Array.from(licensesAndCertificationsUl.querySelectorAll("li"));
 
-        const licensesAndCertificationsArray = lis.map(getLicensesAndCertificationsObject).filter((el) => el !== undefined);
+        const licensesAndCertificationsArray = lis.map((el) => getLicensesAndCertificationsObject(el, filenameKey)).filter((el) => el !== undefined);
 
         return licensesAndCertificationsArray;
     }

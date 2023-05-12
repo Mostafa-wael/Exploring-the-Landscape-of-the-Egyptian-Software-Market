@@ -1,6 +1,6 @@
 import cleanSpaces from "./cleanSpaces.js";
 
-function getExperienceObject(el) {
+function getExperienceObject(el, filename) {
     const containerDiv = el.querySelector("div");
 
     if (cleanSpaces(containerDiv.getAttribute("class")) !== cleanSpaces("pvs-entity pvs-entity--padded pvs-list__item--no-padding-in-columns")) return;
@@ -10,7 +10,9 @@ function getExperienceObject(el) {
 
     const haveMultiplePositions = secondDiv.querySelectorAll("div.pvs-list__outer-container>ul.pvs-list>li.pvs-list__item--one-column>span.pvs-entity__path-node").length > 0;
 
-    const obj = {}
+    const obj = {
+        "User": filename,
+    }
 
     if (firstDiv.querySelector("a")?.getAttribute("href") === undefined) {
         return undefined;
@@ -20,7 +22,7 @@ function getExperienceObject(el) {
 
     if (companyUrl.split("/")[3] !== "company")
         companyUrl = "UNKNOWN";
-    obj.companyUrl = companyUrl;
+    obj.CompanyUrl = companyUrl;
 
     if (!haveMultiplePositions) {
         const mainDiv = secondDiv.querySelectorAll("div")[0];
@@ -28,7 +30,7 @@ function getExperienceObject(el) {
         const parentSpan = mainDiv.querySelector(".t-bold");
         if (parentSpan && parentSpan.querySelector("span")) {
             const title = parentSpan.querySelector("span");
-            obj.title = cleanSpaces(title.innerText);
+            obj.Title = cleanSpaces(title.innerText);
         }
 
         const companyDateLocationSpans = mainDiv.querySelectorAll(".t-normal");
@@ -37,13 +39,13 @@ function getExperienceObject(el) {
             if (companyDateLocationSpan && companyDateLocationSpan.querySelector("span")) {
                 const companyDateLocation = companyDateLocationSpan.querySelector("span");
                 if (i === 0) {
-                    obj.company = cleanSpaces(companyDateLocation.innerText);
+                    obj.Company = cleanSpaces(companyDateLocation.innerText);
                 }
                 if (i === 1) {
-                    obj.date = cleanSpaces(companyDateLocation.innerText);
+                    obj.Date = cleanSpaces(companyDateLocation.innerText);
                 }
                 if (i === 2) {
-                    obj.location = cleanSpaces(companyDateLocation.innerText);
+                    obj.Location = cleanSpaces(companyDateLocation.innerText);
                 }
             }
         }
@@ -54,7 +56,7 @@ function getExperienceObject(el) {
         const parentSpan = mainDiv.querySelector(".t-bold");
         if (parentSpan && parentSpan.querySelector("span")) {
             const company = parentSpan.querySelector("span");
-            obj.company = company.innerText;
+            obj.Company = company.innerText;
         }
 
         const positions = secondDiv.querySelectorAll("div.pvs-list__outer-container>ul.pvs-list>li.pvs-list__item--one-column>div.pvs-entity");
@@ -67,38 +69,38 @@ function getExperienceObject(el) {
             const parentSpan = positionDataDiv.querySelector(".t-bold");
             if (parentSpan && parentSpan.querySelector("span")) {
                 const position = parentSpan.querySelector("span");
-                positionObj.position = cleanSpaces(position.innerText);
+                positionObj.Position = cleanSpaces(position.innerText);
             }
 
             const employmentTypeSpan = positionDataDiv.querySelector("span.t-normal:not(.t-black--light)");
             if (employmentTypeSpan && employmentTypeSpan.querySelector("span")) {
-                positionObj.employmentType = cleanSpaces(employmentTypeSpan.querySelector("span").innerText);
+                positionObj.EmploymentType = cleanSpaces(employmentTypeSpan.querySelector("span").innerText);
             }
 
             const otherSpans = positionDataDiv.querySelectorAll("span.t-normal.t-black--light");
             if (otherSpans.length === 2) {
-                positionObj.date = cleanSpaces(otherSpans[0].querySelector("span").innerText);
+                positionObj.Date = cleanSpaces(otherSpans[0].querySelector("span").innerText);
                 positionObj.location = cleanSpaces(otherSpans[1].querySelector("span").innerText);
             } else if (otherSpans.length === 1) {
-                positionObj.date = cleanSpaces(otherSpans[0].querySelector("span").innerText);
+                positionObj.Date = cleanSpaces(otherSpans[0].querySelector("span").innerText);
             }
 
 
             return positionObj;
         });
 
-        obj.positions = positionsObjects;
+        obj.Positions = positionsObjects;
         return obj;
     }
 }
 
-export default function getExperience(html_root) {
+export default function getExperience(html_root, filename) {
     const experienceSection = html_root.querySelectorAll("section").filter((el) => el.querySelector("#experience"));
 
     if (experienceSection.length > 0) {
         const experienceUl = experienceSection[0].querySelector("ul");
         const experienceLis = Array.from(experienceUl.querySelectorAll("li"));
-        const experienceArray = experienceLis.map(getExperienceObject).filter((el) => el !== undefined);
+        const experienceArray = experienceLis.map((el) => getExperienceObject(el, filename)).filter((el) => el !== undefined);
         return experienceArray;
     }
 

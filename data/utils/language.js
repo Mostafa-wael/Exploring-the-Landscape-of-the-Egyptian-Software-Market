@@ -1,9 +1,10 @@
 import cleanSpaces from "./cleanSpaces.js";
 
-function getLanguagesObject(el) {
+function getLanguagesObject(el, filenameKey) {
     const obj = {
-        title: "",
-        proficiency: ""
+        Title: "",
+        Proficiency: "",
+        "User": filenameKey
     }
 
     const firstDiv = el.querySelector("div");
@@ -17,26 +18,26 @@ function getLanguagesObject(el) {
     const language = mainDiv.querySelector(".t-bold");
     if (language && language.querySelector("span")) {
         const title = language.querySelector("span");
-        obj.title = cleanSpaces(title.innerText);
+        obj.Title = cleanSpaces(title.innerText);
     }
 
     const proficiency = mainDiv.querySelector(".t-normal");
     if (proficiency && proficiency.querySelector("span")) {
         const proficiencySpan = proficiency.querySelector("span");
-        obj.proficiency = cleanSpaces(proficiencySpan.innerText);
+        obj.Proficiency = cleanSpaces(proficiencySpan.innerText);
     }
 
     return obj;
 
 }
 
-export default function getLanguages(html_root) {
+export default function getLanguages(html_root, filenameKey) {
     const languages = html_root.querySelectorAll("section").filter((el) => el.querySelector("#languages"))
     if (languages && languages.length > 0) {
         const languagesUl = languages[0].querySelector("ul");
         const lis = Array.from(languagesUl.querySelectorAll("li"));
 
-        const languagesArray = lis.map(getLanguagesObject).filter((el) => el !== undefined);
+        const languagesArray = lis.map((el) => getLanguagesObject(el, filenameKey)).filter((el) => el !== undefined);
 
         return languagesArray;
 

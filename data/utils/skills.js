@@ -16,13 +16,28 @@ function getSkillObject(el) {
 }
 
 
-export default function getSkill(html_root) {
+export default function getSkill(html_root, filename) {
     const skillsSection = html_root.querySelectorAll("section").filter((el) => el.querySelector("#skills"));
     if (skillsSection.length > 0) {
         const skillsUl = skillsSection[0].querySelector("ul");
         const skillsLis = Array.from(skillsUl.querySelectorAll("li"));
         const skillsArray = skillsLis.map(getSkillObject).filter((el) => el !== undefined);
-        return skillsArray;
+
+        const skillsObjectArray = [{
+            "User": filename,
+            "Skill1": "",
+            "Skill2": "",
+            "Skill3": ""
+        }];
+
+        for (var i = 0; i < skillsArray.length; i++) {
+            const skill = skillsArray[i];
+            if (i === 0) skillsObjectArray[0].Skill1 = skill;
+            if (i === 1) skillsObjectArray[0].Skill2 = skill;
+            if (i === 2) skillsObjectArray[0].Skill3 = skill;
+        }
+
+        return skillsObjectArray;
     }
     return [];
 }
