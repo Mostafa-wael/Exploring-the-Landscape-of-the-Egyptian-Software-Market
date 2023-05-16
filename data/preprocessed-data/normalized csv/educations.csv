@@ -318,7 +318,7 @@ cairo university,"bachelor's degree, computer engineering",2017 - 2022,dina-alaa
 zewail city of science and technology,"bachelor's degree, communications and information engineering",2016 - 2021,dina-elkholy14,zewail city,computer
 cairo university,"bachelor's degree, computer engineering",2015 - 2020,dina-walid-06385b1b0,cairo,computer
 elshourok academy,"bachelor of engineering (b.e.), biomedical engineering and systems control",2006 - 2011,dinakhorshed,,biomedical
-iti,user interface development specialist,,dinakhorshed,,
+iti,user interface development specialist,,dinakhorshed,#iti,
 information technology institute (iti),full stack web development using mern,Nov 2021 - Mar 2022,doaa-eldesoki,#iti,
 alexandria university,"bachelor's degree, faculty of science",2015 - 2019,doaa-eldesoki,alexandria,science
 ain shams university,"bachelor's degree, faculty of computer and information sciences, bioinformatics",2015 - 2019,doaa-mohamed-samir-01031997,ain shams,computer
@@ -437,7 +437,7 @@ minia university,"bachelor's degree, computer engineering",2016 - 2021,heba-abde
 ain shams university,"bachelor's degree, electrical power and machines",2015 - 2020,heba-abdelnasser,ain shams,power
 ain shams university,"bachelor's degree, computer engineering",2015 - 2020,heba-atef-322790223,ain shams,computer
 "minufiya university, faculty of computer and information","master's degree, information system",Jun 2015,heba-fathy-younis-01871625,minufiya,computer
-iti,software development,Sep 2007 - Jun 2008,heba-fathy-younis-01871625,,computer
+iti,software development,Sep 2007 - Jun 2008,heba-fathy-younis-01871625,#iti,computer
 "minufiya university, faculty of computer and information","bachelor's degree, it",Sep 2003 - May 2007,heba-fathy-younis-01871625,minufiya,computer
 the german university in cairo,"bachelor's degree, computer engineering",2015 - 2020,heidi-ashraf,guc,computer
 nile university - nu,"master's degree, commuication and information-informatics",Sep 2018 - Oct 2021,heidy-hazem-90053616b,nile,computer
@@ -1005,7 +1005,7 @@ cairo university,"bachelor's degree, computer engineering",Sep 2016 - Jul 2021,s
 "faculty of electronic engineering, menoufia university","bachelor of computer science and engineering, computer science and engineering",2009 - 2013,sarah-samir-saad-7874a414b,menoufia,computer
 the british university in egypt,"bachelor's degree, computer science",2014 - 2018,seif-el-din-ashraf-7149321a3,,computer
 cairo university,"bachelor of engineering - be, computer engineering",2017 - 2022,seif-eldin-elsaeed-8b0572182,cairo,computer
-iti,2010 - 2011,,shaban-abdelfatah-9050a548,,
+iti,2010 - 2011,,shaban-abdelfatah-9050a548,#iti,
 cairo university,"bachelor of engineering - be, bioengineering and biomedical engineering",2021,shaden-ahmed-sadek,cairo,biomedical
 pharos university in alexandria,"bachelor's degree, computer engineering",Sep 2014 - Jul 2019,shady-eldawy-636a441b3,alexandria,computer
 zagazig university,"bachelor's degree, mechatronics, robotics, and automation engineering",2014 - 2019,shady-mohamed,zagazig,mechatronic
