@@ -2,7 +2,7 @@
 
 ## A Data-driven Approach
 
-Our story begins with a quest for knowledge. The information we obtained from LinkedIn offers us unprecedented insights into the landscape of the Egyptian Software Industry. 
+Our story begins with a quest for knowledge. The information we obtained from LinkedIn offers us unprecedented insights into the landscape of the Egyptian Software Industry.
 
 If you love stories, you can check our conversation with Hazem and his friend Wael from [here](./Story.pdf).
 
@@ -11,7 +11,7 @@ If you love stories, you can check our conversation with Hazem and his friend Wa
 - [Exploring the Landscape of the Egyptian Software Industry](#exploring-the-landscape-of-the-egyptian-software-industry)
   - [A Data-driven Approach](#a-data-driven-approach)
   - [Table of Contents](#table-of-contents)
-    - [The Data](#the-data)
+  - [The Data](#the-data)
   - [Insights](#insights)
   - [Data Collection](#data-collection)
     - [Challenges](#challenges)
@@ -41,7 +41,7 @@ If you love stories, you can check our conversation with Hazem and his friend Wa
     - [Casual questions](#casual-questions-1)
     - [Mechanistic questions](#mechanistic-questions-1)
 
-### The Data
+## The Data
 
 We have collected the data for over 1,000 software companies.
 
