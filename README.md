@@ -1,4 +1,4 @@
-# Exploring the Landscape of the Egyptian Software Industry
+# Exploring the Landscape of the Egyptian Software Market
 
 ## A Data-driven Approach
 
